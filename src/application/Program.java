@@ -1,8 +1,9 @@
 package application;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import boardgame.Board;
+import chess.ChessExcepition;
 import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.ChessPosition;
@@ -14,19 +15,29 @@ public class Program {
 		ChessMatch chessMatch = new ChessMatch();
 
 		while (true) {
-			UI.printBoard(chessMatch.getPieces());
-			System.out.println();
-			System.out.print("Source: ");
-			// ler posição de origem
-			ChessPosition source = UI.readChessPosition(sc);
-
-			// ler posição de destino
-			System.out.println();
-			System.out.print("Target: ");
-			ChessPosition target = UI.readChessPosition(sc);
-
-			ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
-
+			try {
+				UI.clearScreen();
+				UI.printBoard(chessMatch.getPieces());
+				System.out.println();
+				System.out.print("Source: ");
+				// ler posição de origem
+				ChessPosition source = UI.readChessPosition(sc);
+	
+				// ler posição de destino
+				System.out.println();
+				System.out.print("Target: ");
+				ChessPosition target = UI.readChessPosition(sc);
+	
+				ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
+			}
+			catch(ChessExcepition e) {
+				System.out.println(e.getMessage());
+				sc.nextLine();
+			}
+			catch(InputMismatchException e) {
+				System.out.println(e.getMessage());
+				sc.nextLine();
+			}
 		}
 
 	}
