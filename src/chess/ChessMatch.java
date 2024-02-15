@@ -44,17 +44,17 @@ public class ChessMatch {
 		return (ChessPiece) capturedPiece;
 	}
 
-		// logica ara realizar o movimento
+	// logica ara realizar o movimento
 	private Piece makeMove(Position source, Position target) {
 		Piece p = board.removePiece(source);
-		
+
 		// agora vamos capturar a peça que esta no local de destino
 		Piece capturedPiece = board.removePiece(target);
-		
-		//e colocar a outra que foi removida no"source" na posição de destino
+
+		// e colocar a outra que foi removida no"source" na posição de destino
 		board.placePiece(p, target);
-		
-		//retornar a peça capturada
+
+		// retornar a peça capturada
 		return capturedPiece;
 	}
 
@@ -62,6 +62,10 @@ public class ChessMatch {
 	private void validateSourcePosition(Position position) {
 		if (!board.thereIsAPiece(position)) {
 			throw new ChessExcepition("There is no piece on source position");
+		}
+		if (!board.piece(position).isThereAnyPossibleMove()) {
+			throw new ChessExcepition("There is no possible moves for the chosen piece");
+
 		}
 	}
 
