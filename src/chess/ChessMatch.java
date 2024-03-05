@@ -1,5 +1,6 @@
 package chess;
 
+
 import boardgame.Board;
 import boardgame.Piece;
 import boardgame.Position;
@@ -38,6 +39,9 @@ public class ChessMatch {
 		Position target = targetPosition.toPosition();
 		// operação para validar se tem uma peça
 		validateSourcePosition(source);
+		
+		//validar posiçã de destino 
+		validateTargetPosition(source,target);
 
 		Piece capturedPiece = makeMove(source, target);
 		// fazer um Dowcasting
@@ -65,10 +69,15 @@ public class ChessMatch {
 		}
 		if (!board.piece(position).isThereAnyPossibleMove()) {
 			throw new ChessExcepition("There is no possible moves for the chosen piece");
-
+		}	
+	}
+//metodo para validar posição de destino 
+	private void validateTargetPosition(Position source,Position target) {
+		if(!board.piece(source).possibleMove(target)) {
+		throw new ChessExcepition("The chosen piece can't move to target position");
 		}
 	}
-
+	
 	// metodo para instanciarmos as peças de xadrez informando sistemas de
 	// coordenadas do xadrez não da matriz
 
