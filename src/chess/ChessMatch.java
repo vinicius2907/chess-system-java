@@ -2,6 +2,8 @@ package chess;
 
 import java.security.DrbgParameters.NextBytes;
 import java.time.chrono.ThaiBuddhistChronology;
+import java.util.ArrayList;
+import java.util.List;
 
 import boardgame.Board;
 import boardgame.Piece;
@@ -14,7 +16,10 @@ public class ChessMatch {
 	private int turn;
 	private Color currentPlayer;
 	private Board board;
-
+	
+	private List<Piece> piecesOnTheBoard = new ArrayList<>();
+	private List<Piece> capturedPieces = new ArrayList<>();
+	
 	public ChessMatch() {
 		board = new Board(8, 8);
 		this.turn = 1;
@@ -80,11 +85,17 @@ public class ChessMatch {
 		Piece p = board.removePiece(source);
 
 		// agora vamos capturar a peça que esta no local de destino
-		Piece capturedPiece = board.removePiece(target);
+		Piece capturedPiece = board.removePiece(target); 
 
 		// e colocar a outra que foi removida no"source" na posição de destino
 		board.placePiece(p, target);
 
+		//agora vamos testar se houve peça capturada, vomos remover da lista de peças no tabuleiro (piecesOnTheBoard) e add na lista de peças capturadas
+		if(capturedPiece != null) {
+			piecesOnTheBoard.remove(capturedPiece);
+			capturedPieces.add(capturedPiece);
+		}
+		
 		// retornar a peça capturada
 		return capturedPiece;
 	}
@@ -123,6 +134,9 @@ public class ChessMatch {
 
 	private void placeNewPiece(char column, int row, ChessPiece piece) {
 		board.placePiece(piece, new ChessPosition(column, row).toPosition());
+		//colocar peças dentro da lista de peças no tabuleiro 
+		piecesOnTheBoard.add(piece);
+		
 	}
 
 	public void initialSetup() {
