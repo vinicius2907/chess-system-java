@@ -57,6 +57,8 @@ public class Bishop extends ChessPiece {
 
 		// se
 		p.setValues(position.getRow() + 1, position.getColumn() + 1);
+		
+		
 		// testando que, enquanto a posição p existir e estiver vaga marca aposição como
 		// verdadeira
 
@@ -71,6 +73,8 @@ public class Bishop extends ChessPiece {
 
 		// sw
 		p.setValues(position.getRow() + 1, position.getColumn() - 1);
+		
+		
 		// testando que, enquanto a posição p existir e estiver vaga marca aposição como
 		// verdadeira
 
